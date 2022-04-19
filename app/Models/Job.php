@@ -15,4 +15,8 @@ class Job extends Model
     public function department(){
         return $this->belongsTo(Department::class);
     }
+
+    public function materials(){
+        return $this->hasMany(Material::class);
+    }
 }

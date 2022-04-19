@@ -30,8 +30,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/logout', [\App\Http\Controllers\APIAuth\Logout::class, 'logout']);
     Route::get('/departments_list', [\App\Http\Controllers\Clients\Departments\API\DepartmentsList::class, 'index']);
     Route::apiResource('jobs', \App\Http\Controllers\Clients\Jobs\JobsResource::class);
+    Route::apiResource('materials', \App\Http\Controllers\Admin\MaterialsCrudController::class);
 
 
+    Route::post('all_jobs_filterall_jobs_filter',[App\Http\Controllers\FilterController::class,'allJobs']);
     Route::post('work_in_progress_filter',[App\Http\Controllers\FilterController::class,'workInProgress']);
     Route::post('finished_filter',[App\Http\Controllers\FilterController::class,'finishedJobs']);
     Route::post('invoiced_filter',[App\Http\Controllers\FilterController::class,'invoicedJobs']);
@@ -48,3 +50,5 @@ Route::get('work_in_progress', [App\Http\Controllers\Clients\Jobs\DataTables\Job
 Route::get('finished', [App\Http\Controllers\Clients\Jobs\DataTables\Jobs::class, 'finished']);
 Route::get('invoiced', [App\Http\Controllers\Clients\Jobs\DataTables\Jobs::class, 'invoiced']);
 Route::get('collected', [App\Http\Controllers\Clients\Jobs\DataTables\Jobs::class, 'collected']);
+Route::get('materials-datatable', [App\Http\Controllers\Admin\DataTables\MaterialsDataTableController::class, 'material']);
+Route::get('job-materials/{id}', [App\Http\Controllers\Admin\DataTables\JobMaterialsDatatableController::class, 'index']);

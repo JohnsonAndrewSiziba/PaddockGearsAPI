@@ -22,24 +22,48 @@ class FilterController extends Controller
     public function workInProgress(Request $request) {
         $from = $request->from;
         $to = $request->to;
-        return;
+
+        return [
+            "jobs" => Job::where('date', '>=', $from)->where('date', '<=', $to)
+                ->where('work_in_progress', '<', 100)->get(),
+            "quotation_amt_sum" => Job::where('date', '>=', $from)->where('date', '<=', $to)
+                ->sum("quotation_amount"),
+        ];
     }
 
     public function finishedJobs(Request $request) {
         $from = $request->from;
         $to = $request->to;
-        return;
+
+        return [
+            "jobs" => Job::where('date', '>=', $from)->where('date', '<=', $to)
+                ->where('work_in_progress', '>=', 100)->get(),
+            "invoice_amount" => Job::where('date', '>=', $from)->where('date', '<=', $to)
+                ->sum("invoice_amount"),
+        ];
     }
 
     public function invoicedJobs(Request $request) {
         $from = $request->from;
         $to = $request->to;
-        return;
+
+        return [
+            "jobs" => Job::where('date', '>=', $from)->where('date', '<=', $to)
+                ->where('invoice_number', '!=', null)->get(),
+            "invoice_amount" => Job::where('date', '>=', $from)->where('date', '<=', $to)
+                ->sum("invoice_amount"),
+        ];
     }
 
     public function collectedJobs(Request $request) {
         $from = $request->from;
         $to = $request->to;
-        return;
+
+        return [
+            "jobs" => Job::where('date', '>=', $from)->where('date', '<=', $to)
+                ->where('delivery_note_number', '!=', null)->get(),
+            "invoice_amount" => Job::where('date', '>=', $from)->where('date', '<=', $to)
+                ->sum("invoice_amount"),
+        ];
     }
 }

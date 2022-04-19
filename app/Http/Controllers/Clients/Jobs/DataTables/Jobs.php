@@ -17,7 +17,11 @@ class Jobs extends Controller
                 ->addColumn('action', function($row) {
                     return "<a href='/#/jobs/$row->id'>View</a>";
                 })
+                ->addColumn('materialsactipn', function($row) {
+                    return "<a href='/#/materials-job/$row->id'>View</a>";
+                })
                 ->rawColumns(['action'])
+                ->rawColumns(['materialsactipn'])
                 ->make(true);
 //        }
     }
@@ -68,6 +72,10 @@ class Jobs extends Controller
             ->rawColumns(['action'])
             ->make(true);
     }
+
+
+
+
 
 
 }
